@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import Header from './components/Header.vue';
+import { moviesStore } from './store/movies.store';
 
+  moviesStore.initMovies()
 </script>
 
 <template>
-  <Header></Header>
-  <router-view></router-view>
+  <div>
+    <Header></Header>
+    <router-view></router-view>
+  </div>
 </template>
 
 <style>

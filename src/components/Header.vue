@@ -1,8 +1,21 @@
 <template>
     <div>
-        <a href="/filmes-nao-curtidos">Filmes Não Curtidos</a>
-        <a href="/">Home</a>
-        <a href="/filmes-curtidos">Filmes Curtidos</a>
+
+        <router-link to="/filmes-nao-curtidos"
+         @click="selectPage(0)" :class="{selected: currentPage === 0}">
+            Filmes Não Curtidos
+        </router-link>
+
+        <router-link to="/" @click="selectPage(1)" 
+        :class="{selected: currentPage === 1}">
+            Home
+        </router-link>
+
+        <router-link to="/filmes-curtidos" @click="selectPage(2)"
+         :class="{selected: currentPage === 2}">
+            Filmes Curtidos
+         </router-link>
+
     </div>
 </template>
 
@@ -23,7 +36,21 @@ a {
     color: var(--text-color);
 }
 
+.selected {
+    transition: 0.1s;
+    border-bottom: 3px solid var(--text-color);
+}
+
 </style>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
+
+    const currentPage = ref<number>(1)
+
+    function selectPage(n: number){
+        currentPage.value = n
+    }
+
 </script>

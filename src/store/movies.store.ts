@@ -1,5 +1,6 @@
 import { reactive } from "vue"
 import API_KEY from "@/api"
+import axios from "axios"
 
 
 export interface Movie {
@@ -11,37 +12,65 @@ export interface Movie {
     }[],
     overview: string,
     release_date: string,
-    vote_average: number
+    vote_average: number,
+    backdrop_path: string
 }
 
-export interface MoviesResponse {
-    data: Movie[]
-}
 
 
 
 export interface MoviesStore {
-    likeMovie: (movie:  Movie) => void
-    dislikeMovie: (movie:  Movie) => void
+    initMovies: () => void
+    movies: Movie[]
+    likeMovie: (index: number) => void
+    dislikeMovie: (index: number) => void
+    updateMovies: (mvs: Movie[]) => void
+    skipMovie: (index: number) => void
     likedMovies: Movie[]
     dislikedMovies: Movie[]
 }
 
+export interface MoviesResponse {
+    results: Movie[]
+}
+
 export const moviesStore = reactive<MoviesStore>({
 
+    movies: reactive<Movie[]>([]),
     likedMovies: reactive<Movie[]>([]),
     dislikedMovies: reactive<Movie[]>([]),
 
-    likeMovie(movie: Movie){
-        const newMovie = {...movie}
-        this.likedMovies.push(newMovie)
+    likeMovie(index: number){
+        const likedMovie = {...this.movies[index]}
+        this.likedMovies.unshift(likedMovie)
+        this.movies.splice(index, 1);
+        
+        console.log(this.likedMovies)
     },
 
-    dislikeMovie(movie: Movie){
-        const newMovie = {...movie}
-        this.dislikedMovies.push(newMovie)
+    dislikeMovie(index: number){
+        const dislikedMovie = {...this.movies[index]}
+        this.dislikedMovies.unshift(dislikedMovie)
+        this.movies.splice(index, 1);
+        console.log(this.dislikedMovies)
     },
 
+    updateMovies(mvs: Movie[]){
+        this.movies = [...mvs]
+    },
+
+    skipMovie(index: number){
+        const skipped = {...this.movies[index]}
+        this.movies.splice(index, 1)
+        this.movies.push(skipped)
+    },
+
+    initMovies(){
+        axios.get<MoviesResponse>("https://api.themoviedb.org/3/movie/popular" + API_KEY).then((response) => {
+            this.movies = response.data.results
+        });
+
+    }
 
 })
 
