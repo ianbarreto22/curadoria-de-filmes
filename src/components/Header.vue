@@ -1,20 +1,11 @@
 <template>
     <div>
 
-        <router-link to="/filmes-nao-curtidos"
-         @click="selectPage(0)" :class="{selected: currentPage === 0}">
-            Filmes Não Curtidos
-        </router-link>
+        <router-link to="/filmes-nao-curtidos" @click="selectPage(0)" :class="{selected: currentPage === 0}">Filmes Não Curtidos</router-link>
 
-        <router-link to="/" @click="selectPage(1)" 
-        :class="{selected: currentPage === 1}">
-            Home
-        </router-link>
+        <router-link to="/" @click="selectPage(1)" :class="{selected: currentPage === 1}">Filmes Não Curados</router-link>
 
-        <router-link to="/filmes-curtidos" @click="selectPage(2)"
-         :class="{selected: currentPage === 2}">
-            Filmes Curtidos
-         </router-link>
+        <router-link to="/filmes-curtidos" @click="selectPage(2)" :class="{selected: currentPage === 2}">Filmes Curtidos</router-link>
 
     </div>
 </template>
@@ -26,8 +17,9 @@ div {
     display: flex;
     flex-direction: row;
     --bg-color: transparent;
-    --text-color: rgb(31, 218, 31);
+    --text-color: white;
     font-family: 'Galyon', sans-serif;
+    justify-content: center;
 }
 
 a {

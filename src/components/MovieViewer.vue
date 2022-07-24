@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <div>
-            <MovieCard :movie="moviesStore.movies[currentMovie]"></MovieCard>
-        </div>
-        <div>
-            <a @click="dislike">NÃO GOSTEI</a>
-            <a @click="skip">PULAR</a>
-            <a @click="like">GOSTEI</a>
+    <div class="root">
+
+        <MovieCard :movie="moviesStore.movies[currentMovie]"/>
+
+        <div class="row">
+            <a @click="dislike">não gostei</a>
+            <a @click="skip">pular</a>
+            <a @click="like">gostei</a>
         </div>
     </div>
 </template>
@@ -35,26 +35,38 @@ import MovieCard from './MovieCard.vue';
 </script>
 
 <style scoped>
-    div {
-        display: block;
-        --text-color:rgb(31, 218, 31);
-        --bg-color: black;
+
+    .root{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        --text-color:white;
+        --bg-color: transparent;
         font-family: 'Galyon', sans-serif;
     }
 
     a {
-        margin: 15px;
         background-color: var(--bg-color);
         color: var(--text-color);
         padding: 10px 15px 10px 15px;
         border: 1px solid var(--text-color);
         border-radius: 25px;
+        margin: 15px;
+        text-transform: capitalize;
     }
 
     a:hover {
         transition: 0.2s;
         cursor:pointer;
         background-color:var(--text-color);
-        color: white;
+        color: rgb(212, 75, 94);
+    }
+
+    .row {
+        display: flex;
+        width: fit-content;
+        display: flex;
+        flex-direction: row;
     }
 </style>
