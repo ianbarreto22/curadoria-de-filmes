@@ -6,14 +6,12 @@ import axios from "axios"
 export interface Movie {
     title: string,
     poster_path: string
-    genre: {
-        id: number,
-        name: string
-    }[],
+    genre_ids: number[],
     overview: string,
     release_date: string,
     vote_average: number,
-    backdrop_path: string
+    backdrop_path: string,
+    vote_count: number
 }
 
 
@@ -68,6 +66,7 @@ export const moviesStore = reactive<MoviesStore>({
     initMovies(){
         axios.get<MoviesResponse>("https://api.themoviedb.org/3/movie/popular" + API_KEY).then((response) => {
             this.movies = response.data.results
+            console.log(response.data.results)
         });
 
     }
