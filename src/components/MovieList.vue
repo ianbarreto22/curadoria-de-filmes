@@ -28,7 +28,8 @@ import MovieCard from './MovieCard.vue';
             display: grid;
             grid-template-columns: repeat(1, 300px);
             grid-gap: 15px;
-            list-style: none;
+            padding: 0;
+            list-style-type: none;
         }
         li {
             margin-left: 0;
