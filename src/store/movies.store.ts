@@ -34,6 +34,11 @@ export interface MoviesResponse {
     results: Movie[]
 }
 
+function returnRefNumber(ref: Ref<number> | number, add: number){
+    console.log(ref)
+    return (ref as number + add) as number
+}
+
 export const moviesStore = reactive<MoviesStore>({
 
     movies: reactive<Movie[]>([]),
@@ -48,8 +53,8 @@ export const moviesStore = reactive<MoviesStore>({
         
         console.log(this.likedMovies)
         if(this.movies.length === 0){
-            this.currentPage += 1
-            this.initMovies(this.currentPage)
+            this.currentPage = ref<number>(returnRefNumber(this.currentPage, 1))
+            this.initMovies(returnRefNumber(this.currentPage,0))
         }
     },
 
@@ -60,8 +65,8 @@ export const moviesStore = reactive<MoviesStore>({
         console.log(this.dislikedMovies)
 
         if(this.movies.length === 0){
-            this.currentPage +=1
-            this.initMovies(this.currentPage)
+            this.currentPage = ref<number>(returnRefNumber(this.currentPage, 1))
+            this.initMovies(returnRefNumber(this.currentPage,0))
         }
     },
 
@@ -75,7 +80,8 @@ export const moviesStore = reactive<MoviesStore>({
         this.movies.push(skipped)
     },
 
-    initMovies(page: Number ){
+    initMovies(page: number){
+        console.log(page)
         axios.get<MoviesResponse>("https://api.themoviedb.org/3/movie/popular" + API_KEY + page).then((response) => {
             this.movies = response.data.results
             console.log(response.data.results)
