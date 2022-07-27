@@ -1,6 +1,7 @@
-import { reactive } from "vue"
+import { reactive, type Ref } from "vue"
 import API_KEY from "@/api"
 import axios from "axios"
+import {ref} from 'vue'
 
 
 export interface Movie {
@@ -18,14 +19,15 @@ export interface Movie {
 
 
 export interface MoviesStore {
-    initMovies: () => void
+    initMovies: (page: number) => void
     movies: Movie[]
     likeMovie: (index: number) => void
     dislikeMovie: (index: number) => void
     updateMovies: (mvs: Movie[]) => void
     skipMovie: (index: number) => void
     likedMovies: Movie[]
-    dislikedMovies: Movie[]
+    dislikedMovies: Movie[],
+    currentPage: Ref<number>
 }
 
 export interface MoviesResponse {
@@ -37,6 +39,7 @@ export const moviesStore = reactive<MoviesStore>({
     movies: reactive<Movie[]>([]),
     likedMovies: reactive<Movie[]>([]),
     dislikedMovies: reactive<Movie[]>([]),
+    currentPage: ref<number>(1),
 
     likeMovie(index: number){
         const likedMovie = {...this.movies[index]}
@@ -44,6 +47,10 @@ export const moviesStore = reactive<MoviesStore>({
         this.movies.splice(index, 1);
         
         console.log(this.likedMovies)
+        if(this.movies.length === 0){
+            this.currentPage += 1
+            this.initMovies(this.currentPage)
+        }
     },
 
     dislikeMovie(index: number){
@@ -51,6 +58,11 @@ export const moviesStore = reactive<MoviesStore>({
         this.dislikedMovies.unshift(dislikedMovie)
         this.movies.splice(index, 1);
         console.log(this.dislikedMovies)
+
+        if(this.movies.length === 0){
+            this.currentPage +=1
+            this.initMovies(this.currentPage)
+        }
     },
 
     updateMovies(mvs: Movie[]){
@@ -63,8 +75,8 @@ export const moviesStore = reactive<MoviesStore>({
         this.movies.push(skipped)
     },
 
-    initMovies(){
-        axios.get<MoviesResponse>("https://api.themoviedb.org/3/movie/popular" + API_KEY).then((response) => {
+    initMovies(page: Number ){
+        axios.get<MoviesResponse>("https://api.themoviedb.org/3/movie/popular" + API_KEY + page).then((response) => {
             this.movies = response.data.results
             console.log(response.data.results)
         });

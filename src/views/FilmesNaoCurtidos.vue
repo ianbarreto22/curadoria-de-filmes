@@ -1,6 +1,6 @@
 <template>
     <div class="root">
-        <h1>filmes não curtidos</h1>
+        <h1>filmes não curtidos ({{moviesStore.dislikedMovies.length}})</h1>
         <MovieList :movies="dislikedMovies"/>
     </div>
     
@@ -14,6 +14,11 @@ import MovieList from '../components/MovieList.vue';
 </script>
 
 <style scoped>
+    @media(max-width: 960px){
+        h1 {
+            text-align: center;
+        }
+    }
     .root{
         display: flex;
         flex-direction: column;

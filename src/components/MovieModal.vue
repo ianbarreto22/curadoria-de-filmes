@@ -18,9 +18,9 @@
                                 <li>{{formatarData(movie?.release_date)}}</li>
                                 <li>{{formatarGeneros(movie?.genre_ids)}}</li>
                             </ul>
-                            <Rating :grade="movie?.vote_average" :max-stars="5"/>
+                            <Rating class="rating" :grade="movie?.vote_average" :max-stars="5"/>
                             <p class="vote_count">({{movie?.vote_count}} avaliações)</p>
-                            <p>{{movie?.overview}}</p>
+                            <p class="overview">{{movie?.overview}}</p>
                         </div>
                     </div>
 
@@ -78,36 +78,111 @@ import Rating from './Rating.vue'
 <style scoped>
     @import url("https://use.fontawesome.com/releases/v6.0.0/css/all.css");
 
-    .modal-mask {
+    @media(max-width: 960px){
 
-        position: fixed;
-        z-index: 9998;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: table;
-        transition: opacity 0.3s ease;
+        .modal-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            top: 15px;
+            right: 5px;
+            max-width: 90%;
+            max-height: 95%;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+            transition: all 0.3s ease;
+            
+
+            --text-color: rgb(212, 75, 94);
+        }
+
+        .modal-wrapper {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .modal-mask {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-body p {
+            white-space: pre-wrap;
+            max-width: 70%;
+            text-align: justify;
+        }
+
+        .modal-body h2 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50%;
+        }
+
+        .modal-body li{
+            display: none;
+        } 
+
+        .modal-body {
+            overflow: auto;
+        }
     }
 
-    .modal-wrapper {
-        display: table-cell;
-        vertical-align: middle;
+    @media(min-width: 961px){
+        .modal-mask {
+            position: fixed;
+            z-index: 9998;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: table;
+            transition: opacity 0.3s ease;
+        }
+        .modal-wrapper {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .modal-container {
+            min-width: 500px;
+            width: fit-content;
+            margin: 0px auto;
+            padding: 0px 0px;
+            background-color: #fff;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+            transition: all 0.3s ease;
+            --text-color: rgb(212, 75, 94)
+        }
+
+        .modal-body p {
+            white-space: pre-wrap;
+            max-width: 400px;
+            text-align: justify;
+        }
+
+        .modal-body ul {
+            display: flex;
+            flex-direction: row;
+            margin-top: 0;
+            font-size: 15px;
+        }
+
     }
 
-    .modal-container {
-        min-width: 500px;
-        width: fit-content;
-        margin: 0px auto;
-        padding: 0px 0px;
-        background-color: #fff;
-        border-radius: 2px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-        transition: all 0.3s ease;
-
-        --text-color: rgb(212, 75, 94)
-    }
 
     .modal-header {
         background-color: var(--text-color);
@@ -146,7 +221,8 @@ import Rating from './Rating.vue'
     }
 
     .modal-body  img {
-        width: 300px;
+        max-width: 300px;
+        width: 100%;
         position: relative;
         bottom: 50px;
     }
@@ -163,13 +239,6 @@ import Rating from './Rating.vue'
         bottom: 50px;
     }
 
-    .modal-body ul {
-        display: flex;
-        flex-direction: row;
-        margin-top: 0;
-        font-size: 15px;
-    }
-
     .modal-body li {
         margin: 15px;
     }
@@ -178,11 +247,6 @@ import Rating from './Rating.vue'
         list-style: none;
     }
 
-    .modal-body p {
-        white-space: pre-wrap;
-        max-width: 400px;
-        text-align: justify;
-    }
 
     .vote_count {
         margin-top: 0;

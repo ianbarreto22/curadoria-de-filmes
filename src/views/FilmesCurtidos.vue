@@ -1,7 +1,7 @@
 <template>
     <div class="root">
         <div>
-            <h1>Filmes Curtidos</h1>
+            <h1>Filmes Curtidos ({{moviesStore.likedMovies.length}})</h1>
         </div>
         <MovieList :movies="likedMovies"/>
     </div>
@@ -15,6 +15,7 @@ import MovieList from '../components/MovieList.vue';
 </script>
 
 <style scoped>
+
     .root{
         display: flex;
         flex-direction: column;
@@ -27,6 +28,6 @@ import MovieList from '../components/MovieList.vue';
     h1{
         text-transform: uppercase;
         float: left;
-        width: fit-content;
+        text-align: center;
     }
 </style>

@@ -2,7 +2,7 @@
 import Header from './components/Header.vue';
 import { moviesStore } from './store/movies.store';
 
-  moviesStore.initMovies()
+  moviesStore.initMovies(1)
 </script>
 
 <template>
@@ -14,4 +14,5 @@ import { moviesStore } from './store/movies.store';
 
 <style>
 @import "./assets/base.css";
+
 </style>

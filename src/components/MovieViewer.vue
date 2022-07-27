@@ -1,12 +1,12 @@
 <template>
     <div class="root">
 
-        <MovieCard :movie="moviesStore.movies[currentMovie]"/>
+        <MovieCard v-if="moviesStore.movies[currentMovie] != undefined" :movie="moviesStore.movies[currentMovie]"/>
 
         <div class="row">
-            <a @click="dislike">não gostei</a>
-            <a @click="skip">pular</a>
-            <a @click="like">gostei</a>
+            <a @click="dislike"><i class="fa-solid fa-thumbs-down"></i><p>não gostei</p></a>
+            <a @click="skip"><i class="fa-solid fa-forward"></i><p>pular</p></a>
+            <a @click="like"><i class="fa-solid fa-thumbs-up"></i><p>gostei</p></a>
         </div>
     </div>
 </template>
@@ -36,6 +36,20 @@ import MovieCard from './MovieCard.vue';
 
 <style scoped>
 
+    @media(max-width: 960px){
+        a{
+            height: fit-content;
+        }
+
+        i {
+            padding: 5px;
+        }
+
+        a p {
+            display: none;
+        }
+    }
+
     .root{
         display: flex;
         flex-direction: column;
@@ -49,11 +63,21 @@ import MovieCard from './MovieCard.vue';
     a {
         background-color: var(--bg-color);
         color: var(--text-color);
-        padding: 10px 15px 10px 15px;
         border: 1px solid var(--text-color);
-        border-radius: 25px;
+        height: fit-content;
+        padding: 5px 10px;
+        border-radius: 20px;
         margin: 15px;
         text-transform: capitalize;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    a i, a p{
+        height: fit-content;
+        margin-left: 5px;
     }
 
     a:hover {
@@ -66,7 +90,6 @@ import MovieCard from './MovieCard.vue';
     .row {
         display: flex;
         width: fit-content;
-        display: flex;
         flex-direction: row;
     }
 </style>

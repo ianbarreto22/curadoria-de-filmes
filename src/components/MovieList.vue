@@ -22,6 +22,31 @@ import MovieCard from './MovieCard.vue';
 </script>
 
 <style scoped>
+
+    @media(max-width: 960px){
+        ul {
+            display: grid;
+            grid-template-columns: repeat(1, 300px);
+            grid-gap: 15px;
+            list-style: none;
+        }
+        li {
+            margin-left: 0;
+        }
+    }
+
+    @media(min-width: 961px){
+        ul {
+            display: grid;
+            grid-template-columns: repeat(3, 300px);
+            grid-gap: 15px;
+            list-style: none;
+        }
+        li {
+            margin-left: 5px;
+        }
+    }
+
     i{
         font-size: 100px;
     }
@@ -30,15 +55,5 @@ import MovieCard from './MovieCard.vue';
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    ul {
-        display: grid;
-        grid-template-columns: repeat(3, 300px);
-        grid-gap: 15px;
-        list-style: none;
-    }
-    li {
-        margin-left: 5px;
     }
 </style>
